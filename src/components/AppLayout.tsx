@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { DesktopSidebar, MobileHeader, MobileBottomNav, MobileDrawer } from "@/components/AppSidebar";
+import { useClub } from "@/contexts/ClubContext";
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -9,6 +10,7 @@ interface AppLayoutProps {
 
 const AppLayout = ({ children, title, subtitle }: AppLayoutProps) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const { activeClub } = useClub();
 
   return (
     <div className="min-h-screen bg-background">
