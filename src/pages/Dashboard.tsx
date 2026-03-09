@@ -18,7 +18,7 @@ const Dashboard = () => {
   return (
     <AppLayout title="Dashboard" subtitle="Welkom terug bij Pallas Athena">
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mb-6 lg:mb-8">
         {stats.map((stat) => (
           <div key={stat.label} className="glass-card rounded-xl p-5">
             <div className="flex items-center justify-between mb-3">

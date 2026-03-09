@@ -56,7 +56,7 @@ const LandingPage = () => {
               <p className="text-secondary font-display text-sm tracking-[0.3em] uppercase mb-4">
                 Dames Dispuut Pallas Athena
               </p>
-              <h1 className="font-display text-5xl md:text-7xl font-bold text-foreground leading-tight mb-6">
+              <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold text-foreground leading-tight mb-4 lg:mb-6">
                 Jullie Lustrum,
                 <br />
                 <span className="text-gradient">Één Platform</span>
