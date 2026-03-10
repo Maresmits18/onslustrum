@@ -153,6 +153,7 @@ export const ClubProvider = ({ children }: { children: ReactNode }) => {
         memberships,
         activeClub,
         activeRole,
+        activeMembership,
         setActiveClubId,
         refreshMemberships,
         signOut,
