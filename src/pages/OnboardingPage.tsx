@@ -120,12 +120,13 @@ const OnboardingPage = () => {
       return;
     }
 
-    // Add as member
+    // Add as pending member
     const { error: memberError } = await supabase.from("club_members").insert({
       user_id: user.id,
       club_id: invite.club_id,
       role: "member",
       full_name: user.user_metadata?.full_name || null,
+      status: "pending",
     });
 
     if (memberError) {
@@ -142,7 +143,7 @@ const OnboardingPage = () => {
 
     setActiveClubId(invite.club_id);
     await refreshMemberships();
-    toast.success("Je bent toegevoegd aan de club!");
+    toast.success("Aanmelding verstuurd! Het bestuur beoordeelt je aanvraag.");
     navigate("/dashboard");
     setLoading(false);
   };

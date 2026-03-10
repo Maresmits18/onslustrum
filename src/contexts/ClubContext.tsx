@@ -15,6 +15,7 @@ interface Club {
 interface ClubMembership {
   club: Club;
   role: "owner" | "admin" | "member";
+  status: "pending" | "active" | "rejected";
   full_name: string | null;
 }
 
@@ -24,6 +25,7 @@ interface ClubContextType {
   memberships: ClubMembership[];
   activeClub: Club | null;
   activeRole: "owner" | "admin" | "member" | null;
+  activeMembership: ClubMembership | null;
   setActiveClubId: (clubId: string) => void;
   refreshMemberships: () => Promise<void>;
   signOut: () => Promise<void>;
@@ -60,7 +62,7 @@ export const ClubProvider = ({ children }: { children: ReactNode }) => {
   const fetchMemberships = useCallback(async (userId: string) => {
     const { data, error } = await supabase
       .from("club_members")
-      .select("role, full_name, club:clubs(id, name, slug, logo_url, primary_color, secondary_color, font)")
+      .select("role, status, full_name, club:clubs(id, name, slug, logo_url, primary_color, secondary_color, font)")
       .eq("user_id", userId);
 
     if (error || !data) {
@@ -71,6 +73,7 @@ export const ClubProvider = ({ children }: { children: ReactNode }) => {
     const mapped: ClubMembership[] = data.map((m: any) => ({
       club: m.club,
       role: m.role,
+      status: m.status ?? "active",
       full_name: m.full_name,
     }));
     setMemberships(mapped);
@@ -150,6 +153,7 @@ export const ClubProvider = ({ children }: { children: ReactNode }) => {
         memberships,
         activeClub,
         activeRole,
+        activeMembership,
         setActiveClubId,
         refreshMemberships,
         signOut,
