@@ -15,6 +15,7 @@ interface Club {
 interface ClubMembership {
   club: Club;
   role: "owner" | "admin" | "member";
+  status: "pending" | "active" | "rejected";
   full_name: string | null;
 }
 
