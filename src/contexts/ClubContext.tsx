@@ -25,6 +25,7 @@ interface ClubContextType {
   memberships: ClubMembership[];
   activeClub: Club | null;
   activeRole: "owner" | "admin" | "member" | null;
+  activeMembership: ClubMembership | null;
   setActiveClubId: (clubId: string) => void;
   refreshMemberships: () => Promise<void>;
   signOut: () => Promise<void>;
