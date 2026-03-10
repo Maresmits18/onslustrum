@@ -97,9 +97,10 @@ export const ClubProvider = ({ children }: { children: ReactNode }) => {
         setUser(u);
         if (u) {
           const ms = await fetchMemberships(u.id);
-          // Auto-select club if only one
-          if (ms.length === 1 && !activeClubId) {
-            setActiveClubId(ms[0].club.id);
+          // Auto-select club if only one active membership
+          const activeMs = ms.filter(m => m.status === "active");
+          if (activeMs.length === 1 && !activeClubId) {
+            setActiveClubId(activeMs[0].club.id);
           }
         } else {
           setMemberships([]);
@@ -115,8 +116,9 @@ export const ClubProvider = ({ children }: { children: ReactNode }) => {
       setUser(u);
       if (u) {
         fetchMemberships(u.id).then((ms) => {
-          if (ms.length === 1 && !activeClubId) {
-            setActiveClubId(ms[0].club.id);
+          const activeMs = ms.filter(m => m.status === "active");
+          if (activeMs.length === 1 && !activeClubId) {
+            setActiveClubId(activeMs[0].club.id);
           }
           setLoading(false);
         });
