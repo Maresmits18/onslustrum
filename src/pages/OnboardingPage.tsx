@@ -63,11 +63,12 @@ const OnboardingPage = () => {
       return;
     }
 
-    // Add as owner
+    // Add as owner (always active)
     const { error: memberError } = await supabase.from("club_members").insert({
       user_id: user.id,
       club_id: club.id,
       role: "owner",
+      status: "active",
       full_name: user.user_metadata?.full_name || null,
     });
 
