@@ -89,15 +89,15 @@ export const ClubProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem("activeClubId", clubId);
   }, []);
 
-  // Auth state
+  // Auth state — single listener, no separate getSession call
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (_event, session) => {
         const u = session?.user ?? null;
         setUser(u);
+
         if (u) {
           const ms = await fetchMemberships(u.id);
-          // Auto-select club if only one active membership
           const activeMs = ms.filter(m => m.status === "active");
           if (activeMs.length === 1 && !activeClubId) {
             setActiveClubId(activeMs[0].club.id);
@@ -110,22 +110,6 @@ export const ClubProvider = ({ children }: { children: ReactNode }) => {
         setLoading(false);
       }
     );
-
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      const u = session?.user ?? null;
-      setUser(u);
-      if (u) {
-        fetchMemberships(u.id).then((ms) => {
-          const activeMs = ms.filter(m => m.status === "active");
-          if (activeMs.length === 1 && !activeClubId) {
-            setActiveClubId(activeMs[0].club.id);
-          }
-          setLoading(false);
-        });
-      } else {
-        setLoading(false);
-      }
-    });
 
     return () => subscription.unsubscribe();
   }, []);
