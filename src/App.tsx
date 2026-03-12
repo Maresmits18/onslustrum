@@ -6,6 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import MemberHome from "./pages/MemberHome";
 import OwnerDashboard from "./pages/OwnerDashboard";
+import Financieel from "./pages/Financieel";
 import NotFound from "./pages/NotFound";
 
 const App = () => (
@@ -19,6 +20,7 @@ const App = () => (
         <Route path="/onboarding" element={<OnboardingPage />} />
         <Route path="/home" element={<MemberHome />} />
         <Route path="/dashboard" element={<OwnerDashboard />} />
+        <Route path="/dashboard/financieel" element={<Financieel />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
