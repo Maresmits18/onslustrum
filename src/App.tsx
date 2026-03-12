@@ -20,6 +20,7 @@ const App = () => (
         <Route path="/onboarding" element={<OnboardingPage />} />
         <Route path="/home" element={<MemberHome />} />
         <Route path="/dashboard" element={<OwnerDashboard />} />
+        <Route path="/dashboard/financieel" element={<Financieel />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
