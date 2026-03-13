@@ -6,6 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import MemberHome from "./pages/MemberHome";
 import MemberEvents from "./pages/MemberEvents";
+import Profiel from "./pages/Profiel";
 import OwnerDashboard from "./pages/OwnerDashboard";
 import Financieel from "./pages/Financieel";
 import Instellingen from "./pages/Instellingen";
@@ -23,6 +24,7 @@ const App = () => (
         <Route path="/onboarding" element={<OnboardingPage />} />
         <Route path="/home" element={<MemberHome />} />
         <Route path="/home/events" element={<MemberEvents />} />
+        <Route path="/profiel" element={<Profiel />} />
         <Route path="/dashboard" element={<OwnerDashboard />} />
         <Route path="/dashboard/kalender" element={<OwnerKalender />} />
         <Route path="/dashboard/financieel" element={<Financieel />} />
