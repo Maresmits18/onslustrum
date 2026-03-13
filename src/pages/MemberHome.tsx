@@ -27,7 +27,7 @@ const newsItems = [
 
 const bottomNavItems = [
   { path: "/home", icon: Home, label: "Home" },
-  { path: "/kalender", icon: Calendar, label: "Kalender" },
+  { path: "/home/events", icon: Calendar, label: "Kalender" },
   { path: "/chat", icon: MessageCircle, label: "Chat" },
   { path: "/profiel", icon: User, label: "Profiel" },
 ];
