@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, Calendar, User, MessageCircle, Camera, LogOut, Trash2, ExternalLink, Save, Bell, Mail, CreditCard, UserCheck, ChevronRight } from "lucide-react";
+import { Home, Calendar, User, MessageCircle, Camera, LogOut, Trash2, ExternalLink, Save, Bell, Mail, CreditCard, UserCheck, ChevronRight, Newspaper } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
