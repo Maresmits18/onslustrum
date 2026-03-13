@@ -8,7 +8,7 @@ const sidebarItems = [
   { path: "/dashboard/financieel", icon: PiggyBank, label: "Financieel" },
   { path: "/dashboard", icon: Users, label: "Leden" },
   { path: "/dashboard", icon: Newspaper, label: "Nieuws" },
-  { path: "/dashboard", icon: Calendar, label: "Kalender" },
+  { path: "/dashboard/kalender", icon: Calendar, label: "Kalender" },
   { path: "/dashboard/instellingen", icon: Settings, label: "Instellingen" },
 ];
 
