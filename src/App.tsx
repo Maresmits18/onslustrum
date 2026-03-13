@@ -5,9 +5,11 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import LoginPage from "./pages/LoginPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import MemberHome from "./pages/MemberHome";
+import MemberEvents from "./pages/MemberEvents";
 import OwnerDashboard from "./pages/OwnerDashboard";
 import Financieel from "./pages/Financieel";
 import Instellingen from "./pages/Instellingen";
+import OwnerKalender from "./pages/OwnerKalender";
 import NotFound from "./pages/NotFound";
 
 const App = () => (
