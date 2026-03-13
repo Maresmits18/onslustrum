@@ -450,7 +450,4 @@ const Profiel = () => {
   );
 };
 
-// Need to import Newspaper for the notifications section
-import { Newspaper } from "lucide-react";
-
 export default Profiel;
