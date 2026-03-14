@@ -25,6 +25,7 @@ const App = () => (
         <Route path="/onboarding" element={<OnboardingPage />} />
         <Route path="/home" element={<MemberHome />} />
         <Route path="/home/events" element={<MemberEvents />} />
+        <Route path="/home/mededelingen" element={<Mededelingen />} />
         <Route path="/profiel" element={<Profiel />} />
         <Route path="/dashboard" element={<OwnerDashboard />} />
         <Route path="/dashboard/kalender" element={<OwnerKalender />} />

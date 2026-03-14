@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, Calendar, MessageCircle, User, MapPin, Clock, Users } from "lucide-react";
+import { Home, Calendar, Megaphone, User, MapPin, Clock, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 

@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, Calendar, User, Newspaper, MessageCircle } from "lucide-react";
+import { Home, Calendar, User, Newspaper, Megaphone } from "lucide-react";
 
 const newsItems = [
   {
