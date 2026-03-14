@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
-  Home, Calendar, MessageCircle, User, Megaphone, Heart, Send, Pin, Plus,
-  ExternalLink, BarChart3, Link2, Trash2, GripVertical, X, ChevronUp, ChevronDown
+  Megaphone, Heart, Send, Pin, Plus, MessageCircle,
+  ExternalLink, BarChart3, Link2, Trash2, X
 } from "lucide-react";
+import MemberBottomNav from "@/components/MemberBottomNav";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -165,19 +166,13 @@ const initialFeed: FeedItem[] = [
   },
 ];
 
-const bottomNavItems = [
-  { path: "/home", icon: Home, label: "Home" },
-  { path: "/home/events", icon: Calendar, label: "Kalender" },
-  { path: "/home/mededelingen", icon: Megaphone, label: "Feed" },
-  { path: "/profiel", icon: User, label: "Profiel" },
-];
 
 // Simulate owner
 const IS_OWNER = false;
 
 const Mededelingen = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  
 
   const [feed, setFeed] = useState<FeedItem[]>(initialFeed);
   const [replyTexts, setReplyTexts] = useState<Record<number, string>>({});
@@ -707,26 +702,7 @@ const Mededelingen = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Bottom navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-md border-t border-border z-40">
-        <div className="flex justify-around items-center py-2 max-w-lg mx-auto">
-          {bottomNavItems.map((item) => {
-            const isActive = location.pathname === item.path;
-            return (
-              <button
-                key={item.path}
-                onClick={() => navigate(item.path)}
-                className={`flex flex-col items-center gap-0.5 py-1.5 px-3 rounded-lg transition-colors ${
-                  isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <item.icon className="w-5 h-5" strokeWidth={isActive ? 2.5 : 2} />
-                <span className="text-[10px] font-medium">{item.label}</span>
-              </button>
-            );
-          })}
-        </div>
-      </nav>
+      <MemberBottomNav />
     </div>
   );
 };
