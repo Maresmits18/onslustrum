@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
-  Home, Calendar, MessageCircle, User, Megaphone, Heart, Send, Pin, Plus,
-  ExternalLink, BarChart3, Link2, Trash2, GripVertical, X, ChevronUp, ChevronDown
+  Megaphone, Heart, Send, Pin, Plus, MessageCircle,
+  ExternalLink, BarChart3, Link2, Trash2, X
 } from "lucide-react";
+import MemberBottomNav from "@/components/MemberBottomNav";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
