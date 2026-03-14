@@ -172,7 +172,7 @@ const IS_OWNER = false;
 
 const Mededelingen = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  
 
   const [feed, setFeed] = useState<FeedItem[]>(initialFeed);
   const [replyTexts, setReplyTexts] = useState<Record<number, string>>({});
