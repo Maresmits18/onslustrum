@@ -64,7 +64,7 @@ const getDaysUntil = (dateStr: string) => {
 const bottomNavItems = [
   { path: "/home", icon: Home, label: "Home" },
   { path: "/home/events", icon: Calendar, label: "Kalender" },
-  { path: "/chat", icon: MessageCircle, label: "Chat" },
+  { path: "/home/mededelingen", icon: Megaphone, label: "Feed" },
   { path: "/profiel", icon: User, label: "Profiel" },
 ];
 
