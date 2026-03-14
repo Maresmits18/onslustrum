@@ -166,12 +166,6 @@ const initialFeed: FeedItem[] = [
   },
 ];
 
-const bottomNavItems = [
-  { path: "/home", icon: Home, label: "Home" },
-  { path: "/home/events", icon: Calendar, label: "Kalender" },
-  { path: "/home/mededelingen", icon: Megaphone, label: "Feed" },
-  { path: "/profiel", icon: User, label: "Profiel" },
-];
 
 // Simulate owner
 const IS_OWNER = false;
