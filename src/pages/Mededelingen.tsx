@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Megaphone, Heart, Send, Pin, Plus, MessageCircle,
   ExternalLink, BarChart3, Link2, Trash2, X
