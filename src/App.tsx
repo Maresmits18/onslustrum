@@ -11,6 +11,7 @@ import OwnerDashboard from "./pages/OwnerDashboard";
 import Financieel from "./pages/Financieel";
 import Instellingen from "./pages/Instellingen";
 import OwnerKalender from "./pages/OwnerKalender";
+import Mededelingen from "./pages/Mededelingen";
 import NotFound from "./pages/NotFound";
 
 const App = () => (
