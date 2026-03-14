@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, Calendar, MessageCircle, User, MapPin, Clock, Users } from "lucide-react";
+import { Home, Calendar, Megaphone, User, MapPin, Clock, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -64,7 +64,7 @@ const getDaysUntil = (dateStr: string) => {
 const bottomNavItems = [
   { path: "/home", icon: Home, label: "Home" },
   { path: "/home/events", icon: Calendar, label: "Kalender" },
-  { path: "/chat", icon: MessageCircle, label: "Chat" },
+  { path: "/home/mededelingen", icon: Megaphone, label: "Feed" },
   { path: "/profiel", icon: User, label: "Profiel" },
 ];
 

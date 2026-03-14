@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, Calendar, User, Newspaper, MessageCircle } from "lucide-react";
+import { Home, Calendar, User, Newspaper, Megaphone } from "lucide-react";
 
 const newsItems = [
   {
@@ -28,7 +28,7 @@ const newsItems = [
 const bottomNavItems = [
   { path: "/home", icon: Home, label: "Home" },
   { path: "/home/events", icon: Calendar, label: "Kalender" },
-  { path: "/chat", icon: MessageCircle, label: "Chat" },
+  { path: "/home/mededelingen", icon: Megaphone, label: "Feed" },
   { path: "/profiel", icon: User, label: "Profiel" },
 ];
 
