@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Bell, ChevronRight, Clock, MapPin, Newspaper } from "lucide-react";
+import { Clock, MapPin, Newspaper } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import MemberBottomNav from "@/components/MemberBottomNav";
+import NotificationCenter from "@/components/NotificationCenter";
 
 // --- Data ---
 const nextEvent = {
