@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Bell, ChevronRight, Clock, MapPin, Newspaper } from "lucide-react";
+import { Clock, MapPin, Newspaper } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import MemberBottomNav from "@/components/MemberBottomNav";
+import NotificationCenter from "@/components/NotificationCenter";
 
 // --- Data ---
 const nextEvent = {
@@ -105,10 +106,7 @@ const MemberHome = () => {
               <p className="text-[11px] text-muted-foreground">Est. 1976 · Lustrum 2026</p>
             </div>
           </div>
-          <button className="relative p-2 rounded-full hover:bg-muted/50 transition-colors">
-            <Bell className="w-5 h-5 text-foreground" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-destructive rounded-full" />
-          </button>
+          <NotificationCenter />
         </div>
       </header>
 
