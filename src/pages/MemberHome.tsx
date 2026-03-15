@@ -106,10 +106,7 @@ const MemberHome = () => {
               <p className="text-[11px] text-muted-foreground">Est. 1976 · Lustrum 2026</p>
             </div>
           </div>
-          <button className="relative p-2 rounded-full hover:bg-muted/50 transition-colors">
-            <Bell className="w-5 h-5 text-foreground" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-destructive rounded-full" />
-          </button>
+          <NotificationCenter />
         </div>
       </header>
 
