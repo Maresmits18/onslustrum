@@ -1,126 +1,224 @@
-import { useNavigate } from "react-router-dom";
-import { ArrowLeft, MessageCircle } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { useMemo, useState } from "react";
+import {
+  ChevronRight,
+  Info,
+  MessageCircle,
+  PiggyBank,
+  TrendingDown,
+  TrendingUp,
+  Check,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import MemberBottomNav from "@/components/MemberBottomNav";
+import MemberHeader from "@/components/MemberHeader";
+import { formatShortDate, formatLongDate } from "@/lib/dates";
 
-const profile = {
+const eur = (n: number) =>
+  new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR" }).format(n);
+
+const pot = {
   pakket: "Pakket 3",
-  gespaard: 125,
-  totaal: 250,
-  status: "gedeeltelijk_betaald",
+  gespaard: 60,
+  doel: 2050,
+  /** Wat je op vandaag gespaard zou moeten hebben. */
+  verwacht: 1366,
+  /** Laatste sluitingsdatum van de pot. */
+  deadline: "2026-12-31",
+  bijgewerkt: "2026-07-04",
 };
 
-const statusConfig: Record<string, { label: string; emoji: string; className: string }> = {
-  volledig_betaald: { label: "Volledig betaald", emoji: "✅", className: "bg-emerald-100 text-emerald-800 border-emerald-200" },
-  in_afwachting: { label: "In afwachting", emoji: "⏳", className: "bg-amber-100 text-amber-800 border-amber-200" },
-  gedeeltelijk_betaald: { label: "Gedeeltelijk betaald", emoji: "⚠️", className: "bg-orange-100 text-orange-800 border-orange-200" },
-  niet_betaald: { label: "Niet betaald", emoji: "❌", className: "bg-red-100 text-red-800 border-red-200" },
-};
+const spaarplan = [
+  { naam: "Lustrumgala", datum: "2026-08-22", bedrag: 750 },
+  { naam: "Lustrumreis", datum: "2026-09-18", bedrag: 900 },
+  { naam: "Openingsborrel", datum: "2026-08-01", bedrag: 250 },
+  { naam: "Slotdiner", datum: "2026-10-03", bedrag: 150 },
+];
 
-const paymentHistory = [
-  { datum: "15 feb 2026", bedrag: 50, notitie: "Eerste termijn" },
-  { datum: "1 jan 2026", bedrag: 50, notitie: "Kerstactie bijdrage" },
-  { datum: "10 dec 2025", bedrag: 25, notitie: "Startbedrag" },
+const betalingen = [
+  { datum: "2026-02-15", bedrag: 35, notitie: "Eerste termijn" },
+  { datum: "2026-01-01", bedrag: 15, notitie: "Kerstactie bijdrage" },
+  { datum: "2025-12-10", bedrag: 10, notitie: "Startbedrag" },
 ];
 
 const MemberFinancieel = () => {
-  const navigate = useNavigate();
-  const voortgang = Math.round((profile.gespaard / profile.totaal) * 100);
-  const status = statusConfig[profile.status];
+  const [planOpen, setPlanOpen] = useState(false);
 
-  const motivatie = voortgang >= 75
-    ? "Je bent er bijna! 🎉"
-    : voortgang >= 50
-      ? "Goed bezig! 💪"
-      : "Je bent net begonnen!";
+  const { pct, verwachtPct, achterstand, perMaand, maandenTeGaan } = useMemo(() => {
+    const pct = Math.min(100, Math.round((pot.gespaard / pot.doel) * 100));
+    const verwachtPct = Math.min(100, Math.round((pot.verwacht / pot.doel) * 100));
+    const achterstand = pot.verwacht - pot.gespaard;
+    const nu = new Date();
+    const eind = new Date(pot.deadline);
+    const maandenTeGaan = Math.max(
+      1,
+      (eind.getFullYear() - nu.getFullYear()) * 12 + (eind.getMonth() - nu.getMonth()),
+    );
+    const perMaand = (pot.doel - pot.gespaard) / maandenTeGaan;
+    return { pct, verwachtPct, achterstand, perMaand, maandenTeGaan };
+  }, []);
+
+  const opSchema = achterstand <= 0;
 
   return (
-    <div className="min-h-screen bg-background pb-24">
-      {/* Header */}
-      <header className="sticky top-0 z-30 bg-background/90 backdrop-blur-md border-b border-border safe-area-top">
-        <div className="flex items-center gap-3 px-5 py-3">
-          <button onClick={() => navigate("/home")} className="p-1 -ml-1 rounded-md hover:bg-muted/50 transition-colors">
-            <ArrowLeft className="w-5 h-5 text-foreground" />
-          </button>
-          <h1 className="font-display font-bold text-foreground text-base">Financieel</h1>
-        </div>
-      </header>
+    <div className="min-h-screen bg-background pb-28">
+      <MemberHeader
+        title="Spaarpot"
+        subtitle={`Bijgewerkt ${formatShortDate(pot.bijgewerkt)} · ${pot.pakket}`}
+      />
 
-      <main className="px-5 py-6 max-w-lg mx-auto space-y-5 animate-fade-in">
-        {/* Hero card */}
-        <Card className="glass-card border-border/50 overflow-hidden">
-          <div className="bg-gradient-to-br from-primary/5 to-primary/10 p-6 space-y-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground">Jouw bijdrage</span>
-                <h2 className="font-display text-2xl font-bold text-foreground mt-1">{profile.pakket}</h2>
-              </div>
-              <Badge variant="outline" className={`${status.className} border text-xs`}>
-                {status.emoji} {status.label}
-              </Badge>
-            </div>
-
-            <div className="space-y-2">
-              <Progress value={voortgang} className="h-3" />
-              <div className="flex items-center justify-between">
-                <span className="font-display text-xl font-bold text-foreground">
-                  €{profile.gespaard} <span className="text-sm font-normal text-muted-foreground">/ €{profile.totaal}</span>
+      <main className="px-5 py-5 max-w-lg mx-auto space-y-4 animate-fade-in">
+        {/* Hero: hoeveel staat er in de pot */}
+        <Card className="border-border/60 overflow-hidden">
+          <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-5 space-y-5">
+            <div className="flex items-end justify-between gap-3">
+              <div className="min-w-0">
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary">
+                  Al gespaard
                 </span>
-                <span className="text-xs text-muted-foreground">{voortgang}%</span>
+                <p className="font-display text-[2.5rem] leading-none font-bold text-foreground mt-1.5 tabular-nums">
+                  {eur(pot.gespaard)}
+                </p>
+              </div>
+              <span className="text-sm text-muted-foreground shrink-0 pb-1 tabular-nums">
+                van {eur(pot.doel)}
+              </span>
+            </div>
+
+            {/* Voortgang met richtlijn-markering */}
+            <div className="space-y-2">
+              <div className="relative">
+                <Progress value={pct} className="h-2.5" />
+                <div
+                  className="absolute -top-1 h-[18px] w-0.5 rounded-full bg-foreground/50"
+                  style={{ left: `${verwachtPct}%` }}
+                  aria-hidden
+                />
+              </div>
+              <div className="flex justify-between text-[11px] text-muted-foreground tabular-nums">
+                <span>{pct}% van je doel</span>
+                <span>richtlijn vandaag: {eur(pot.verwacht)}</span>
               </div>
             </div>
 
-            <p className="text-sm text-muted-foreground italic">{motivatie}</p>
+            <div className="pt-4 border-t border-border/60 space-y-1">
+              <p
+                className={`flex items-center gap-2 text-sm font-semibold ${
+                  opSchema ? "text-[hsl(var(--success))]" : "text-primary"
+                }`}
+              >
+                {opSchema ? (
+                  <TrendingUp className="w-4 h-4 shrink-0" />
+                ) : (
+                  <TrendingDown className="w-4 h-4 shrink-0" />
+                )}
+                {opSchema
+                  ? `Je loopt ${eur(Math.abs(achterstand))} voor`
+                  : `Je loopt ${eur(achterstand)} achter`}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Maak{" "}
+                <span className="font-semibold text-foreground tabular-nums">
+                  {eur(perMaand)}
+                </span>{" "}
+                per maand over om op tijd rond te komen ({maandenTeGaan} maanden te gaan).
+              </p>
+            </div>
           </div>
         </Card>
 
-        {/* Payment history */}
-        <Card className="glass-card border-border/50">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-base font-display">Betaalhistorie</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {paymentHistory.length > 0 ? (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="font-display text-xs">Datum</TableHead>
-                    <TableHead className="font-display text-xs">Bedrag</TableHead>
-                    <TableHead className="font-display text-xs">Notitie</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {paymentHistory.map((p, i) => (
-                    <TableRow key={i}>
-                      <TableCell className="text-sm">{p.datum}</TableCell>
-                      <TableCell className="text-sm font-medium">€{p.bedrag.toFixed(2)}</TableCell>
-                      <TableCell className="text-sm text-muted-foreground">{p.notitie}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            ) : (
-              <p className="text-sm text-muted-foreground text-center py-6">Nog geen betalingen geregistreerd</p>
-            )}
-          </CardContent>
-        </Card>
+        {/* Spaarplan */}
+        <Collapsible open={planOpen} onOpenChange={setPlanOpen}>
+          <Card className="border-border/60 overflow-hidden">
+            <CollapsibleTrigger className="w-full flex items-center gap-3 p-4 text-left min-h-[56px] hover:bg-muted/40 transition-colors">
+              <span className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                <PiggyBank className="w-5 h-5 text-primary" />
+              </span>
+              <span className="flex-1 min-w-0">
+                <span className="block font-display font-semibold text-foreground text-sm">
+                  Spaarplan
+                </span>
+                <span className="block text-xs text-muted-foreground">
+                  Verdeling over de evenementen
+                </span>
+              </span>
+              <ChevronRight
+                className={`w-4 h-4 text-muted-foreground shrink-0 transition-transform ${
+                  planOpen ? "rotate-90" : ""
+                }`}
+              />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <ul className="border-t border-border/60 divide-y divide-border/60">
+                {spaarplan.map((item) => (
+                  <li key={item.naam} className="flex items-center justify-between px-4 py-3">
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-foreground truncate">{item.naam}</p>
+                      <p className="text-xs text-muted-foreground">{formatLongDate(item.datum)}</p>
+                    </div>
+                    <span className="text-sm font-semibold text-foreground tabular-nums shrink-0">
+                      {eur(item.bedrag)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </CollapsibleContent>
+          </Card>
+        </Collapsible>
 
-        {/* Contact card */}
-        <Card className="glass-card border-border/50">
-          <CardContent className="p-5 flex items-center justify-between">
-            <div>
-              <p className="font-display font-semibold text-foreground text-sm">Vragen over je betaling?</p>
-              <p className="text-xs text-muted-foreground mt-0.5">Neem contact op met de penningmeester</p>
+        {/* Betaalhistorie */}
+        <section className="space-y-2">
+          <h2 className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground px-1">
+            Jouw betalingen
+          </h2>
+          <Card className="border-border/60 overflow-hidden">
+            {betalingen.length > 0 ? (
+              <ul className="divide-y divide-border/60">
+                {betalingen.map((p) => (
+                  <li key={p.datum} className="flex items-center gap-3 px-4 py-3">
+                    <span className="w-9 h-9 rounded-full bg-[hsl(var(--success-soft))] flex items-center justify-center shrink-0">
+                      <Check className="w-4 h-4 text-[hsl(var(--success))]" />
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-foreground truncate">{p.notitie}</p>
+                      <p className="text-xs text-muted-foreground">{formatLongDate(p.datum)}</p>
+                    </div>
+                    <span className="text-sm font-semibold text-foreground tabular-nums shrink-0">
+                      +{eur(p.bedrag)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-sm text-muted-foreground text-center py-8">
+                Nog geen betalingen geregistreerd
+              </p>
+            )}
+          </Card>
+        </section>
+
+        {/* Uitleg + contact */}
+        <Card className="border-border/60 bg-muted/30">
+          <div className="p-4 space-y-3">
+            <p className="flex gap-2 text-xs text-muted-foreground leading-relaxed">
+              <Info className="w-4 h-4 shrink-0 mt-px" />
+              De richtlijn is het bedrag dat je vandaag gespaard zou moeten hebben om op de
+              einddatum je pakket rond te hebben.
+            </p>
+            <div className="flex items-center justify-between gap-3 pt-1">
+              <p className="text-sm font-medium text-foreground">Vragen over je betaling?</p>
+              <Button size="sm" variant="outline" className="shrink-0 gap-1.5 min-h-[40px]">
+                <MessageCircle className="w-4 h-4" />
+                Penningmeester
+              </Button>
             </div>
-            <Button size="sm" variant="outline" className="shrink-0 gap-1.5 border-primary/30 text-primary hover:bg-primary/5">
-              <MessageCircle className="w-3.5 h-3.5" />
-              Contact
-            </Button>
-          </CardContent>
+          </div>
         </Card>
       </main>
 
