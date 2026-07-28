@@ -55,6 +55,30 @@ export default {
           DEFAULT: "hsl(var(--rose))",
           light: "hsl(var(--rose-light))",
         },
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          soft: "hsl(var(--success-soft))",
+        },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          soft: "hsl(var(--warning-soft))",
+        },
+        info: {
+          DEFAULT: "hsl(var(--info))",
+          soft: "hsl(var(--info-soft))",
+        },
+        event: {
+          borrel: "hsl(var(--event-borrel))",
+          "borrel-soft": "hsl(var(--event-borrel-soft))",
+          gala: "hsl(var(--event-gala))",
+          "gala-soft": "hsl(var(--event-gala-soft))",
+          reis: "hsl(var(--event-reis))",
+          "reis-soft": "hsl(var(--event-reis-soft))",
+          vergadering: "hsl(var(--event-vergadering))",
+          "vergadering-soft": "hsl(var(--event-vergadering-soft))",
+          anders: "hsl(var(--event-anders))",
+          "anders-soft": "hsl(var(--event-anders-soft))",
+        },
         gold: {
           DEFAULT: "hsl(var(--gold))",
           light: "hsl(var(--gold-light))",
